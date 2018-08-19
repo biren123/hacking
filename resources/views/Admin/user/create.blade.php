@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
        @section('content')
-        {!! Form::open(['method'=>'POST','action'=>'AdminUserController@store','file'=>true]) !!}
+        {!! Form::open(['method'=>'POST','action'=>'AdminUserController@store','files'=>true]) !!}
         {{--<input type="hidden" name="_method" value="csrf_token" >--}}
         {!! csrf_field() !!}
 
@@ -26,8 +26,8 @@
         </div>
 
         <div class="form-group">
-            {!! Form::label('file','Image') !!}
-            {!! Form::file('file',null,['class'=>'form-control']) !!}
+            {!! Form::label('photo_id','Image') !!}
+            {!! Form::file('photo_id',null,['class'=>'form-control']) !!}
         </div>
 
         <div class="form-group">
