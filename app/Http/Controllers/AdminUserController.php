@@ -43,7 +43,11 @@ class AdminUserController extends Controller
      */
     public function store(UserRequest $request)
     {
-
+       if(trim($request->password)==''){
+        $input=$request->except('password');
+       }else{
+           $input=$request->all();
+       }
        $input=$request->all();
        if($file=$request->file('photo_id')){
         $name=time().$file->getClientOriginalName();
@@ -83,6 +87,11 @@ class AdminUserController extends Controller
      */
     public function edit($id)
     {
+        $user=user::findOrFail($id);
+
+        $role=role::lists('name','id')->all();
+        return view('admin.user.edit',compact('user','role'));
+
         //
     }
 
@@ -93,8 +102,26 @@ class AdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {
+        $user = user::find($id);
+        if(trim($request->password)==''){
+            $input=$request->except('password');
+        }else {
+            $input = $request->all();
+        }
+      if($file=$request->file('photo_id')){
+
+          $name=time().$file->getClientOriginalName();
+          $file->move('gallery',$name);
+          $photo=photo::create(['file'=>$name]);
+            $input['photo_id']=$photo->id;
+      }
+        $input['password']=bcrypt($request->password);
+
+        $user->update($input);
+        return redirect('/admin/users');
+
         //
     }
 

@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
        @section('content')
+           <h1>Create Users</h1>
         {!! Form::open(['method'=>'POST','action'=>'AdminUserController@store','files'=>true]) !!}
         {{--<input type="hidden" name="_method" value="csrf_token" >--}}
         {!! csrf_field() !!}
@@ -38,6 +39,7 @@
         <div class="form-group" >
         {!! Form::submit('Create User',['class'=>'btn btn-primary']) !!}
         </div>
+
         @include('includes.form_error')
 
 
