@@ -1,6 +1,13 @@
 @extends('layouts.admin')
 
 @section('content')
+
+
+    @if(Session::has('deleted_user'))
+
+        <p class="alert-danger">{{Session('deleted_user')}}</p>
+    @endif
+
     <table class="table table-bordered">
         <thead>
           <tr>
